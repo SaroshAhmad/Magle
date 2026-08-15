@@ -1,47 +1,126 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0b0b0c;
-  --surface: #121214;
-  --surface-raised: #1a1a1d;
-  --foreground: #edebe6;
-  --muted: #a19e96;
-  --accent: #c9a86a;
-  --accent-soft: rgba(201, 168, 106, 0.12);
-  --line: rgba(237, 235, 230, 0.1);
+  --background: #f2efe9;
+  --surface: #faf8f4;
+  --ink: #14120e;
+  --ink-soft: #55524b;
+  --accent: #ff4d24;
+  --line: rgba(20, 18, 14, 0.12);
+
+  /* card tints */
+  --tint-peach: #ffd9c2;
+  --tint-lilac: #e2d9ff;
+  --tint-mint: #d4eecb;
+  --tint-sky: #cfe3ff;
+  --tint-lemon: #f8ecb4;
+  --tint-rose: #ffd7e0;
+  --tint-lime: #d9f24e;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-surface: var(--surface);
-  --color-raised: var(--surface-raised);
-  --color-foreground: var(--foreground);
-  --color-muted: var(--muted);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
   --color-accent: var(--accent);
-  --color-accent-soft: var(--accent-soft);
   --color-line: var(--line);
+  --color-peach: var(--tint-peach);
+  --color-lilac: var(--tint-lilac);
+  --color-mint: var(--tint-mint);
+  --color-sky: var(--tint-sky);
+  --color-lemon: var(--tint-lemon);
+  --color-rose: var(--tint-rose);
+  --color-lime: var(--tint-lime);
   --font-sans: var(--font-geist-sans);
-  --font-serif: var(--font-instrument-serif);
+  --font-display: var(--font-bricolage);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
+  color: var(--ink);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   text-rendering: optimizeLegibility;
+  overflow-x: clip;
 }
 
 ::selection {
-  background: var(--accent);
+  background: var(--ink);
   color: var(--background);
 }
 
-/* Subtle top glow used on hero sections */
-.hero-glow {
-  background:
-    radial-gradient(
-      900px 420px at 50% -80px,
-      rgba(201, 168, 106, 0.14),
-      transparent 70%
-    );
+/* Display typography helpers */
+.display {
+  font-family: var(--font-bricolage), sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+
+.display-black {
+  font-family: var(--font-bricolage), sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 0.92;
+}
+
+/* Outlined word — KOTA-style typographic play */
+.outline-text {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--ink);
+}
+
+@media (max-width: 640px) {
+  .outline-text {
+    -webkit-text-stroke: 1.4px var(--ink);
+  }
+}
+
+.outline-text-cream {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--background);
+}
+
+/* Marquee */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Line-reveal masks for hero text.
+   Padding keeps descenders visible inside the overflow-hidden mask;
+   the negative margin cancels it out visually. */
+.reveal-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+.reveal-line > span {
+  display: block;
+  will-change: transform;
 }

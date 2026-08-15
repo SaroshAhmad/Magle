@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ContactForm } from "@/components/forms";
-import { Eyebrow, PageHero } from "@/components/ui";
+import { Reveal } from "@/components/motion";
+import { Label, PageHero } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -9,76 +10,78 @@ export const metadata: Metadata = {
     "Start a project with Magle Digital — tell us about your business and we'll reply within one working day.",
 };
 
+const steps = [
+  "A real person reads your message and replies within one working day.",
+  "If it looks like a fit, we book a short call — no decks, just questions about your business.",
+  "You get a written recommendation: what we'd do, in what order, and what it costs. Yours to keep either way.",
+];
+
 export default function ContactPage() {
   return (
     <>
       <PageHero
         eyebrow="Contact"
-        title={
-          <>
-            Tell us what&apos;s <span className="text-accent italic">leaking</span>.
-          </>
-        }
+        lines={[
+          <>Tell us what&apos;s</>,
+          <span key="l" className="text-accent">
+            leaking.
+          </span>,
+        ]}
         lede="Missed calls, no-shows, a website that embarrasses you, a brand that undersells you — whatever it is, describe it in plain words. We'll reply within one working day with an honest read, not a sales script."
       />
 
-      <section>
-        <div className="mx-auto max-w-6xl px-5 py-16">
+      <section className="border-b border-line">
+        <div className="mx-auto max-w-7xl px-5 py-16 sm:py-24">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
-            <div className="space-y-10">
-              <div>
-                <Eyebrow>What happens next</Eyebrow>
-                <ol className="mt-6 space-y-5">
-                  <li className="flex gap-4">
-                    <span className="font-serif text-lg text-accent italic">01</span>
-                    <p className="leading-relaxed text-muted">
-                      A real person reads your message and replies within one
-                      working day.
-                    </p>
-                  </li>
-                  <li className="flex gap-4">
-                    <span className="font-serif text-lg text-accent italic">02</span>
-                    <p className="leading-relaxed text-muted">
-                      If it looks like a fit, we book a short call — no decks,
-                      just questions about your business.
-                    </p>
-                  </li>
-                  <li className="flex gap-4">
-                    <span className="font-serif text-lg text-accent italic">03</span>
-                    <p className="leading-relaxed text-muted">
-                      You get a written recommendation: what we&apos;d do, in
-                      what order, and what it costs. Yours to keep either way.
-                    </p>
-                  </li>
-                </ol>
-              </div>
+            <div className="space-y-6">
+              <Reveal>
+                <div className="rounded-3xl bg-mint p-8 text-ink">
+                  <Label index="01">What happens next</Label>
+                  <ol className="mt-6 space-y-5">
+                    {steps.map((step, i) => (
+                      <li key={step} className="flex items-start gap-4">
+                        <span className="display text-2xl">0{i + 1}</span>
+                        <p className="leading-relaxed text-ink/75">{step}</p>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </Reveal>
 
-              <div className="rounded-2xl border border-line bg-surface p-7">
-                <Eyebrow>Looking to join the team?</Eyebrow>
-                <p className="mt-3 text-sm leading-relaxed text-muted">
-                  Applications live on our culture page — we&apos;d rather meet
-                  you there.
-                </p>
-                <Link
-                  href="/culture#apply"
-                  className="mt-4 inline-block text-sm text-accent transition-opacity hover:opacity-80"
-                >
-                  Go to careers →
-                </Link>
-              </div>
+              <Reveal delay={0.1}>
+                <div className="rounded-3xl bg-lilac p-8 text-ink">
+                  <Label index="02">Looking to join the team?</Label>
+                  <p className="mt-4 text-sm leading-relaxed text-ink/75">
+                    Applications live on our culture page — we&apos;d rather
+                    meet you there.
+                  </p>
+                  <Link
+                    href="/culture#apply"
+                    className="mt-5 inline-block font-display text-sm font-bold uppercase tracking-wide underline decoration-accent decoration-2 underline-offset-8 transition-colors hover:text-accent"
+                  >
+                    Go to careers →
+                  </Link>
+                </div>
+              </Reveal>
 
-              <div>
-                <Eyebrow>Where we work</Eyebrow>
-                <p className="mt-3 text-sm leading-relaxed text-muted">
-                  Remote-first, serving clients in the UK, India and beyond.
-                  Wherever your customers are, that&apos;s where we work.
-                </p>
-              </div>
+              <Reveal delay={0.15}>
+                <div className="rounded-3xl bg-ink p-8 text-background">
+                  <p className="font-mono text-xs uppercase tracking-[0.18em] text-lime">
+                    ✦ Where we work
+                  </p>
+                  <p className="mt-4 text-sm leading-relaxed text-background/70">
+                    Remote-first, serving clients in the UK, India and beyond.
+                    Wherever your customers are, that&apos;s where we work.
+                  </p>
+                </div>
+              </Reveal>
             </div>
 
-            <div className="rounded-2xl border border-line bg-surface p-8">
-              <ContactForm />
-            </div>
+            <Reveal delay={0.1}>
+              <div className="rounded-3xl border-2 border-ink bg-surface p-8 sm:p-10">
+                <ContactForm />
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>

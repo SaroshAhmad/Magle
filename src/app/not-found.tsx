@@ -2,19 +2,23 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <section className="hero-glow">
-      <div className="mx-auto max-w-6xl px-5 py-32 text-center">
-        <p className="font-serif text-7xl text-accent italic">404</p>
-        <h1 className="mt-4 font-serif text-3xl">This page doesn&apos;t exist.</h1>
-        <p className="mx-auto mt-4 max-w-md leading-relaxed text-muted">
+    <section>
+      <div className="mx-auto max-w-7xl px-5 py-32 text-center">
+        <p className="display-black text-[30vw] leading-none text-accent sm:text-[14rem]">
+          404
+        </p>
+        <h1 className="display mt-2 text-4xl">
+          This page doesn&apos;t <span className="outline-text">exist.</span>
+        </h1>
+        <p className="mx-auto mt-5 max-w-md leading-relaxed text-ink-soft">
           The link may be old, or the page may have moved. Everything we offer
           is one click from the homepage.
         </p>
         <Link
           href="/"
-          className="mt-8 inline-block rounded-full bg-foreground px-6 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-85"
+          className="mt-9 inline-block rounded-full bg-ink px-8 py-4 font-display text-sm font-bold uppercase tracking-wide text-background transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent"
         >
-          Back to home
+          Back to home →
         </Link>
       </div>
     </section>

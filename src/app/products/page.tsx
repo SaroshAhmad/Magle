@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { products } from "@/lib/content";
+import { Marquee, Reveal, RevealGroup } from "@/components/motion";
 import { ComingSoonBadge, CtaBand, PageHero } from "@/components/ui";
 
 export const metadata: Metadata = {
@@ -9,59 +10,97 @@ export const metadata: Metadata = {
     "In-house software by Magle Digital: booking system, AI engineered assistance, email automation, and review capture & management.",
 };
 
+const tints: Record<string, string> = {
+  "booking-system": "bg-sky",
+  "ai-assistant": "bg-ink text-background",
+  "email-automation": "bg-lemon",
+  "review-management": "bg-rose",
+};
+
 export default function ProductsPage() {
   return (
     <>
       <PageHero
         eyebrow="Products"
-        title={
+        lines={[
           <>
-            Software we build{" "}
-            <span className="text-accent italic">in-house</span>, for
-            businesses like yours.
-          </>
-        }
+            Software built <span className="text-accent">in-house</span>,
+          </>,
+          <>
+            for businesses like{" "}
+            <span className="outline-text">yours.</span>
+          </>,
+        ]}
         lede="Four tools, one connected system: bookings that fill themselves, an AI assistant that answers when you can't, email that follows up automatically, and reviews that grow on their own. Each product is in active development — join the early list and shape what we ship."
       />
 
-      <section>
-        <div className="mx-auto max-w-6xl px-5 py-16">
-          <div className="grid gap-6 md:grid-cols-2">
-            {products.map((product) => (
-              <Link
-                key={product.slug}
-                href={`/products/${product.slug}`}
-                className="group flex flex-col rounded-2xl border border-line bg-surface p-8 transition-colors hover:border-accent/40"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <h2 className="text-2xl font-medium">{product.name}</h2>
-                  <ComingSoonBadge />
-                </div>
-                <p className="mt-1 font-serif text-lg text-accent italic">
-                  {product.tagline}
-                </p>
-                <p className="mt-4 leading-relaxed text-muted">
-                  {product.summary}
-                </p>
-                <p className="mt-6 text-sm text-accent opacity-0 transition-opacity group-hover:opacity-100">
-                  Learn more →
-                </p>
-              </Link>
-            ))}
-          </div>
+      <section className="border-b border-line">
+        <div className="mx-auto max-w-7xl px-5 py-16 sm:py-24">
+          <RevealGroup className="grid gap-5 md:grid-cols-2">
+            {products.map((product) => {
+              const dark = product.slug === "ai-assistant";
+              return (
+                <Link
+                  key={product.slug}
+                  href={`/products/${product.slug}`}
+                  className={`group flex min-h-[360px] flex-col justify-between rounded-3xl p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_60px_-20px_rgba(20,18,14,0.35)] sm:p-10 ${tints[product.slug]}`}
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <h2 className="display text-4xl leading-none">
+                      {product.name}
+                    </h2>
+                    <ComingSoonBadge dark={dark} />
+                  </div>
+                  <div>
+                    <p
+                      className={`display text-2xl ${dark ? "text-lime" : "text-accent"}`}
+                    >
+                      {product.tagline}
+                    </p>
+                    <p
+                      className={`mt-4 leading-relaxed ${
+                        dark ? "text-background/70" : "text-ink/70"
+                      }`}
+                    >
+                      {product.summary}
+                    </p>
+                    <p
+                      className={`mt-6 font-display text-sm font-bold uppercase tracking-wide ${
+                        dark ? "text-lime" : "text-ink"
+                      } opacity-0 transition-opacity duration-300 group-hover:opacity-100`}
+                    >
+                      Learn more →
+                    </p>
+                  </div>
+                </Link>
+              );
+            })}
+          </RevealGroup>
+        </div>
+      </section>
 
-          <div className="mt-12 rounded-2xl border border-line bg-surface p-8 md:p-10">
-            <h2 className="font-serif text-2xl">
-              Why &ldquo;coming soon&rdquo; doesn&apos;t mean &ldquo;wait&rdquo;
-            </h2>
-            <p className="mt-4 max-w-3xl leading-relaxed text-muted">
-              Early clients get every one of these capabilities today —
-              delivered and managed by our team while the products mature. As
-              each product ships, it slots in underneath, and nothing changes
-              on your side except the price of doing it manually. Being early
-              means you shape the roadmap.
-            </p>
-          </div>
+      <div className="border-b border-line">
+        <Marquee
+          items={["Booking", "AI Assistance", "Automation", "Reviews"]}
+        />
+      </div>
+
+      <section className="border-b border-line">
+        <div className="mx-auto max-w-7xl px-5 py-16 sm:py-24">
+          <Reveal>
+            <div className="rounded-3xl bg-lime p-10 text-ink sm:p-14">
+              <h2 className="display text-3xl sm:text-5xl">
+                Why &ldquo;coming soon&rdquo; doesn&apos;t mean &ldquo;wait&rdquo;.
+              </h2>
+              <p className="mt-6 max-w-3xl text-lg leading-relaxed text-ink/75">
+                Early clients get every one of these capabilities today —
+                delivered and managed by our team while the products mature. As
+                each product ships, it slots in underneath, and nothing changes
+                on your side except the price of doing it manually. Being early
+                means you shape the roadmap.
+              </p>
+            </div>
+          </Reveal>
         </div>
       </section>
 

@@ -3,9 +3,9 @@
 import { useState } from "react";
 
 const inputClass =
-  "w-full rounded-xl border border-line bg-surface px-4 py-3 text-sm text-foreground placeholder:text-muted/60 outline-none transition-colors focus:border-accent/60";
+  "w-full rounded-xl border-2 border-line bg-background px-4 py-3 text-sm text-ink placeholder:text-ink-soft/50 outline-none transition-colors focus:border-accent";
 
-const labelClass = "block text-sm font-medium mb-2";
+const labelClass = "block font-display text-sm font-bold mb-2";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -44,9 +44,9 @@ function useFormSubmit(endpoint: string) {
 
 function SuccessNote({ children }: { children: React.ReactNode }) {
   return (
-    <div className="rounded-2xl border border-accent/25 bg-accent-soft p-8 text-center">
-      <p className="font-serif text-2xl">Thank you.</p>
-      <p className="mt-3 leading-relaxed text-muted">{children}</p>
+    <div className="rounded-2xl bg-mint p-8 text-center text-ink">
+      <p className="display text-3xl">Thank you ✦</p>
+      <p className="mt-3 leading-relaxed text-ink/70">{children}</p>
     </div>
   );
 }
@@ -156,12 +156,12 @@ export function ContactForm() {
         className="hidden"
       />
 
-      {status === "error" && <p className="text-sm text-red-400">{error}</p>}
+      {status === "error" && <p className="text-sm font-medium text-accent">{error}</p>}
 
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="rounded-full bg-accent px-8 py-3 text-sm font-medium text-background transition-opacity hover:opacity-85 disabled:opacity-50"
+        className="rounded-full bg-ink px-8 py-4 font-display text-sm font-bold uppercase tracking-wide text-background transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent disabled:opacity-50"
       >
         {status === "submitting" ? "Sending…" : "Send message"}
       </button>
@@ -274,12 +274,12 @@ export function ApplicationForm() {
         className="hidden"
       />
 
-      {status === "error" && <p className="text-sm text-red-400">{error}</p>}
+      {status === "error" && <p className="text-sm font-medium text-accent">{error}</p>}
 
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="rounded-full bg-accent px-8 py-3 text-sm font-medium text-background transition-opacity hover:opacity-85 disabled:opacity-50"
+        className="rounded-full bg-ink px-8 py-4 font-display text-sm font-bold uppercase tracking-wide text-background transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent disabled:opacity-50"
       >
         {status === "submitting" ? "Sending…" : "Submit application"}
       </button>
