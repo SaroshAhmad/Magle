@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { products, services } from "@/lib/content";
 import { HeroReveal, Marquee, Reveal, RevealGroup } from "@/components/motion";
+import ServiceStack from "@/components/ServiceStack";
+import ProductArt from "@/components/ProductArt";
 import {
   ComingSoonBadge,
   CtaBand,
@@ -9,10 +11,9 @@ import {
   SectionTitle,
 } from "@/components/ui";
 
-const serviceTints = ["bg-peach", "bg-lilac", "bg-mint"];
 const productTints: Record<string, string> = {
   "booking-system": "bg-sky",
-  "ai-assistant": "bg-ink text-background",
+  "ai-assistant": "bg-dark-2 text-white",
   "email-automation": "bg-lemon",
   "review-management": "bg-rose",
 };
@@ -47,7 +48,7 @@ export default function HomePage() {
             </span>
             <span className="reveal-line">
               <span>
-                the <span className="text-accent">website,</span>
+                the <span className="grad-text">website,</span>
               </span>
             </span>
             <span className="reveal-line">
@@ -70,7 +71,7 @@ export default function HomePage() {
               one system, no duct tape.
             </p>
             <div className="flex flex-wrap gap-3">
-              <PillButton href="/contact" variant="accent">
+              <PillButton href="/contact" variant="grad">
                 Start a project <span aria-hidden>→</span>
               </PillButton>
               <PillButton href="/products" variant="outline">
@@ -81,7 +82,7 @@ export default function HomePage() {
         </HeroReveal>
       </section>
 
-      {/* Marquee */}
+      {/* Marquee — direction-aware */}
       <div className="border-b border-line">
         <Marquee
           items={[
@@ -96,31 +97,54 @@ export default function HomePage() {
         />
       </div>
 
-      {/* The problem */}
-      <section className="border-b border-line">
-        <div className="mx-auto max-w-7xl px-5 py-20 sm:py-28">
-          <Reveal>
-            <Label index="01">Why we exist</Label>
-            <h2 className="display mt-6 max-w-4xl text-5xl sm:text-7xl">
-              Good businesses lose money in{" "}
-              <span className="text-accent">quiet, boring</span> ways.
-            </h2>
-          </Reveal>
-          <RevealGroup className="mt-16 grid gap-px overflow-hidden rounded-3xl border border-line bg-line md:grid-cols-3">
-            {problems.map((problem, i) => (
-              <div key={problem.title} className="bg-background p-8 sm:p-10">
-                <p className="display text-5xl text-accent">0{i + 1}</p>
-                <h3 className="display mt-6 text-2xl">{problem.title}</h3>
-                <p className="mt-4 leading-relaxed text-ink-soft">
-                  {problem.body}
-                </p>
-              </div>
-            ))}
-          </RevealGroup>
+      {/* The problem — dark luminous band */}
+      <section className="px-3 py-6 sm:px-5">
+        <div className="relative mx-auto max-w-[96rem] overflow-hidden rounded-[2.5rem] bg-dark text-white">
+          <div
+            aria-hidden
+            className="orb -top-32 left-[15%] h-[28rem] w-[28rem] opacity-35"
+            style={{
+              background:
+                "radial-gradient(circle at 50% 50%, #6366f1, rgba(99,102,241,0) 70%)",
+            }}
+          />
+          <div
+            aria-hidden
+            className="orb bottom-[-30%] right-[8%] h-[26rem] w-[26rem] opacity-30"
+            style={{
+              background:
+                "radial-gradient(circle at 50% 50%, #f472b6, rgba(244,114,182,0) 70%)",
+            }}
+          />
+          <div className="relative mx-auto max-w-7xl px-5 py-20 sm:px-10 sm:py-28">
+            <Reveal>
+              <Label index="01" light>
+                Why we exist
+              </Label>
+              <h2 className="display mt-6 max-w-4xl text-5xl sm:text-7xl">
+                Good businesses lose money in{" "}
+                <span className="grad-text">quiet, boring</span> ways.
+              </h2>
+            </Reveal>
+            <RevealGroup className="mt-16 grid gap-5 md:grid-cols-3">
+              {problems.map((problem, i) => (
+                <div
+                  key={problem.title}
+                  className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm sm:p-10"
+                >
+                  <p className="display grad-text text-6xl">0{i + 1}</p>
+                  <h3 className="display mt-6 text-2xl">{problem.title}</h3>
+                  <p className="mt-4 leading-relaxed text-white/65">
+                    {problem.body}
+                  </p>
+                </div>
+              ))}
+            </RevealGroup>
+          </div>
         </div>
       </section>
 
-      {/* Services */}
+      {/* Services — stacking cards */}
       <section className="border-b border-line">
         <div className="mx-auto max-w-7xl px-5 py-20 sm:py-28">
           <Reveal className="flex flex-wrap items-end justify-between gap-6">
@@ -136,32 +160,19 @@ export default function HomePage() {
             </Link>
           </Reveal>
 
-          <RevealGroup className="mt-16 grid gap-5 md:grid-cols-3">
-            {services.map((service, i) => (
-              <Link
-                key={service.slug}
-                href={`/services/${service.slug}`}
-                className={`group flex min-h-[380px] flex-col justify-between rounded-3xl p-8 text-ink transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_60px_-20px_rgba(20,18,14,0.35)] ${serviceTints[i]}`}
-              >
-                <div className="flex items-center justify-between">
-                  <p className="font-mono text-xs uppercase tracking-[0.18em]">
-                    0{i + 1} — Service
-                  </p>
-                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-ink text-background transition-transform duration-300 group-hover:rotate-45">
-                    ↗
-                  </span>
-                </div>
-                <div>
-                  <h3 className="display text-4xl leading-none">
-                    {service.name}
-                  </h3>
-                  <p className="mt-4 text-sm leading-relaxed text-ink/70">
-                    {service.summary}
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </RevealGroup>
+          <div className="mt-16">
+            <ServiceStack
+              cards={services.map((s) => ({
+                slug: s.slug,
+                name: s.name,
+                tagline: s.tagline,
+                summary: s.summary,
+                chips: s.deliverables
+                  .slice(0, 3)
+                  .map((d) => d.split("—")[0].trim()),
+              }))}
+            />
+          </div>
         </div>
       </section>
 
@@ -188,7 +199,9 @@ export default function HomePage() {
                 <Link
                   key={product.slug}
                   href={`/products/${product.slug}`}
-                  className={`group flex min-h-[300px] flex-col justify-between rounded-3xl p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_60px_-20px_rgba(20,18,14,0.35)] ${productTints[product.slug]}`}
+                  className={`group flex min-h-[420px] flex-col justify-between overflow-hidden rounded-3xl p-8 transition-all duration-300 hover:-translate-y-2 ${
+                    dark ? "glow-indigo" : "hover:glow-soft hover:shadow-[0_24px_70px_-24px_rgba(99,102,241,0.45)]"
+                  } ${productTints[product.slug]}`}
                 >
                   <div className="flex items-start justify-between gap-4">
                     <h3 className="display text-3xl leading-none sm:text-4xl">
@@ -196,15 +209,19 @@ export default function HomePage() {
                     </h3>
                     <ComingSoonBadge dark={dark} />
                   </div>
+                  <ProductArt
+                    slug={product.slug}
+                    className="mx-auto h-40 w-full max-w-xs transition-transform duration-300 group-hover:scale-105"
+                  />
                   <div>
                     <p
-                      className={`display text-xl ${dark ? "text-lime" : "text-accent"}`}
+                      className={`display text-xl ${dark ? "grad-text" : "text-accent"}`}
                     >
                       {product.tagline}
                     </p>
                     <p
                       className={`mt-3 text-sm leading-relaxed ${
-                        dark ? "text-background/70" : "text-ink/70"
+                        dark ? "text-white/65" : "text-ink/70"
                       }`}
                     >
                       {product.summary}
@@ -240,12 +257,13 @@ export default function HomePage() {
               </div>
             </Reveal>
             <Reveal delay={0.15}>
-              <blockquote className="rotate-1 rounded-3xl bg-lime p-9 transition-transform duration-300 hover:rotate-0 sm:p-12">
-                <p className="display text-3xl leading-tight text-ink sm:text-4xl">
-                  &ldquo;Every business we work with should feel like it has a
-                  technology team of its own — because with us, it does.&rdquo;
+              <blockquote className="glow-indigo rotate-1 rounded-3xl bg-dark p-9 text-white transition-transform duration-300 hover:rotate-0 sm:p-12">
+                <p className="display text-3xl leading-tight sm:text-4xl">
+                  &ldquo;Every business we work with should feel like it has a{" "}
+                  <span className="grad-text">technology team of its own</span>{" "}
+                  — because with us, it does.&rdquo;
                 </p>
-                <footer className="mt-6 font-mono text-xs uppercase tracking-[0.18em] text-ink/60">
+                <footer className="mt-6 font-mono text-xs uppercase tracking-[0.18em] text-white/50">
                   ✦ The Magle founding principle
                 </footer>
               </blockquote>

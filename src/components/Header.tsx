@@ -16,7 +16,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-background/85 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-line bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-5">
         <Link
           href="/"
@@ -35,8 +35,8 @@ export default function Header() {
                 href={link.href}
                 className={`rounded-full px-4 py-2 font-display text-sm font-semibold transition-colors ${
                   active
-                    ? "bg-ink text-background"
-                    : "text-ink hover:bg-ink/8"
+                    ? "bg-ink text-white"
+                    : "text-ink hover:bg-accent/10"
                 }`}
               >
                 {link.label}
@@ -45,7 +45,7 @@ export default function Header() {
           })}
           <Link
             href="/contact"
-            className="ml-3 rounded-full bg-accent px-5 py-2.5 font-display text-sm font-bold text-background transition-all duration-300 hover:-translate-y-0.5 hover:bg-ink"
+            className="ml-3 rounded-full btn-grad px-5 py-2.5 font-display text-sm font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110"
           >
             Start a project
           </Link>
@@ -87,7 +87,7 @@ export default function Header() {
           ))}
           <Link
             href="/contact"
-            className="mt-4 inline-block rounded-full bg-accent px-7 py-3.5 font-display text-sm font-bold uppercase tracking-wide text-background"
+            className="mt-4 inline-block rounded-full btn-grad px-7 py-3.5 font-display text-sm font-bold uppercase tracking-wide text-white"
             onClick={() => setOpen(false)}
           >
             Start a project →

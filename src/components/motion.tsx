@@ -168,15 +168,61 @@ export function HeroReveal({
 }
 
 /**
- * Infinite horizontal marquee (CSS-driven; pauses for reduced motion).
+ * Infinite horizontal marquee, GSAP-driven and direction-aware:
+ * scrolls forward while the page scrolls down, reverses when the
+ * user scrolls up. Static when reduced motion is preferred.
  */
 export function Marquee({
   items,
   className = "",
+  dark = false,
 }: {
   items: string[];
   className?: string;
+  dark?: boolean;
 }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add(
+        {
+          reduceMotion: "(prefers-reduced-motion: reduce)",
+          ok: "(prefers-reduced-motion: no-preference)",
+        },
+        (context) => {
+          const { reduceMotion } = context.conditions as {
+            reduceMotion: boolean;
+          };
+          if (reduceMotion) return;
+
+          const tween = gsap.to(".marquee-track", {
+            xPercent: -50,
+            ease: "none",
+            duration: 26,
+            repeat: -1,
+          });
+
+          ScrollTrigger.create({
+            trigger: ref.current,
+            start: "top bottom",
+            end: "bottom top",
+            onUpdate: (self) => {
+              // Reverse the marquee when scrolling up
+              gsap.to(tween, {
+                timeScale: self.direction,
+                duration: 0.4,
+                overwrite: true,
+              });
+            },
+          });
+        },
+      );
+    },
+    { scope: ref },
+  );
+
   const row = (key: string) => (
     <div key={key} className="flex shrink-0 items-center" aria-hidden={key === "b"}>
       {items.map((item, i) => (
@@ -185,14 +231,14 @@ export function Marquee({
           className="display flex items-center whitespace-nowrap text-4xl sm:text-6xl"
         >
           <span className="px-6">{item}</span>
-          <span className="text-accent">✦</span>
+          <span className={dark ? "grad-text" : "text-accent"}>✦</span>
         </span>
       ))}
     </div>
   );
 
   return (
-    <div className={`overflow-hidden py-6 ${className}`}>
+    <div ref={ref} className={`overflow-hidden py-6 ${className}`}>
       <div className="marquee-track">
         {row("a")}
         {row("b")}

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProduct, products } from "@/lib/content";
 import { HeroReveal, Reveal, RevealGroup } from "@/components/motion";
+import ProductArt from "@/components/ProductArt";
 import { ComingSoonBadge, CtaBand, Label, PillButton } from "@/components/ui";
 
 const tints: Record<string, string> = {
@@ -38,21 +39,28 @@ export default async function ProductDetailPage({
     <>
       <section className="border-b border-line">
         <HeroReveal className="mx-auto max-w-7xl px-5 pb-16 pt-16 sm:pb-24 sm:pt-24">
-          <div className="hero-fade flex flex-wrap items-center gap-4">
-            <Label index="✦">Product</Label>
-            <ComingSoonBadge />
+          <div className="grid items-center gap-10 lg:grid-cols-[1.5fr_1fr]">
+            <div>
+              <div className="hero-fade flex flex-wrap items-center gap-4">
+                <Label index="✦">Product</Label>
+                <ComingSoonBadge />
+              </div>
+              <h1 className="display mt-6 text-[13vw] leading-[0.95] sm:text-6xl lg:text-7xl">
+                <span className="reveal-line">
+                  <span>{product.name}.</span>
+                </span>
+                <span className="reveal-line">
+                  <span className="grad-text">{product.tagline}</span>
+                </span>
+              </h1>
+              <p className="hero-fade mt-8 max-w-2xl text-lg leading-relaxed text-ink-soft sm:text-xl">
+                {product.intro}
+              </p>
+            </div>
+            <div className={`hero-fade hidden rounded-[2rem] p-8 glow-soft lg:block ${tint}`}>
+              <ProductArt slug={product.slug} className="h-64 w-full" />
+            </div>
           </div>
-          <h1 className="display mt-6 text-[13vw] leading-[0.95] sm:text-7xl lg:text-8xl">
-            <span className="reveal-line">
-              <span>{product.name}.</span>
-            </span>
-            <span className="reveal-line">
-              <span className="text-accent">{product.tagline}</span>
-            </span>
-          </h1>
-          <p className="hero-fade mt-8 max-w-2xl text-lg leading-relaxed text-ink-soft sm:text-xl">
-            {product.intro}
-          </p>
         </HeroReveal>
       </section>
 
@@ -69,11 +77,11 @@ export default async function ProductDetailPage({
             {product.features.map((feature, i) => (
               <div
                 key={feature.title}
-                className={`rounded-3xl p-8 text-ink ${i === 0 ? "bg-ink !text-background md:col-span-2" : tint}`}
+                className={`rounded-3xl p-8 ${i === 0 ? "glow-indigo bg-dark text-white md:col-span-2" : `text-ink ${tint}`}`}
               >
                 <p
                   className={`font-mono text-xs uppercase tracking-[0.18em] ${
-                    i === 0 ? "text-lime" : "text-ink/50"
+                    i === 0 ? "grad-text" : "text-ink/50"
                   }`}
                 >
                   {String(i + 1).padStart(2, "0")}
@@ -83,7 +91,7 @@ export default async function ProductDetailPage({
                 </h3>
                 <p
                   className={`mt-3 max-w-2xl leading-relaxed ${
-                    i === 0 ? "text-background/70" : "text-ink/70"
+                    i === 0 ? "text-white/70" : "text-ink/70"
                   }`}
                 >
                   {feature.description}
@@ -107,17 +115,17 @@ export default async function ProductDetailPage({
               </div>
             </Reveal>
             <Reveal delay={0.12}>
-              <div className="h-full rounded-3xl bg-ink p-9 text-background sm:p-12">
-                <p className="font-mono text-xs uppercase tracking-[0.18em] text-lime">
-                  ✦ Early access
+              <div className="glow-indigo h-full rounded-3xl bg-dark p-9 text-white sm:p-12">
+                <p className="font-mono text-xs uppercase tracking-[0.18em]">
+                  <span className="grad-text">✦ Early access</span>
                 </p>
-                <p className="mt-6 leading-relaxed text-background/75">
+                <p className="mt-6 leading-relaxed text-white/70">
                   {product.name} is in active development. Early clients get
                   the full capability today, delivered concierge-style by our
                   team — and move onto the product seamlessly when it ships.
                 </p>
                 <div className="mt-8">
-                  <PillButton href="/contact" variant="accent">
+                  <PillButton href="/contact" variant="grad">
                     Request early access →
                   </PillButton>
                 </div>

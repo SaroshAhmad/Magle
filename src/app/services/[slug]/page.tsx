@@ -107,11 +107,19 @@ export default async function ServiceDetailPage({
       <section className="border-b border-line">
         <div className="mx-auto max-w-7xl px-5 py-16 sm:py-24">
           <Reveal>
-            <div className="rounded-3xl bg-ink p-10 text-background sm:p-16">
-              <Label index="03">
-                <span className="text-background/60">The outcome</span>
+            <div className="glow-indigo relative overflow-hidden rounded-3xl bg-dark p-10 text-white sm:p-16">
+              <div
+                aria-hidden
+                className="orb -top-24 right-[10%] h-72 w-72 opacity-30"
+                style={{
+                  background:
+                    "radial-gradient(circle at 50% 50%, #22d3ee, rgba(34,211,238,0) 70%)",
+                }}
+              />
+              <Label index="03" light>
+                The outcome
               </Label>
-              <p className="display mt-6 max-w-4xl text-3xl leading-tight sm:text-5xl">
+              <p className="display relative mt-6 max-w-4xl text-3xl leading-tight sm:text-5xl">
                 {service.outcome}
               </p>
             </div>

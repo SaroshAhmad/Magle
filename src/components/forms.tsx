@@ -3,9 +3,9 @@
 import { useState } from "react";
 
 const inputClass =
-  "w-full rounded-xl border-2 border-line bg-background px-4 py-3 text-sm text-ink placeholder:text-ink-soft/50 outline-none transition-colors focus:border-accent";
+  "w-full rounded-2xl border border-line bg-background/60 px-4.5 py-3.5 text-sm text-ink shadow-[inset_0_1px_2px_rgba(16,16,30,0.04)] placeholder:text-ink-soft/45 outline-none transition-all duration-300 focus:border-accent focus:bg-surface focus:shadow-[0_0_0_4px_rgba(99,102,241,0.15),0_8px_24px_-8px_rgba(99,102,241,0.35)]";
 
-const labelClass = "block font-display text-sm font-bold mb-2";
+const labelClass = "block font-display text-sm font-bold mb-2.5";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -161,7 +161,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="rounded-full bg-ink px-8 py-4 font-display text-sm font-bold uppercase tracking-wide text-background transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent disabled:opacity-50"
+        className="w-full rounded-2xl btn-grad px-8 py-4 font-display text-sm font-bold uppercase tracking-wide text-white transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110 disabled:opacity-50 sm:w-auto"
       >
         {status === "submitting" ? "Sending…" : "Send message"}
       </button>
@@ -279,7 +279,7 @@ export function ApplicationForm() {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="rounded-full bg-ink px-8 py-4 font-display text-sm font-bold uppercase tracking-wide text-background transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent disabled:opacity-50"
+        className="w-full rounded-2xl btn-grad px-8 py-4 font-display text-sm font-bold uppercase tracking-wide text-white transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110 disabled:opacity-50 sm:w-auto"
       >
         {status === "submitting" ? "Sending…" : "Submit application"}
       </button>

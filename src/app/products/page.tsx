@@ -2,19 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { products } from "@/lib/content";
 import { Marquee, Reveal, RevealGroup } from "@/components/motion";
+import ProductArt from "@/components/ProductArt";
 import { ComingSoonBadge, CtaBand, PageHero } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "Products",
   description:
     "In-house software by Magle Digital: booking system, AI engineered assistance, email automation, and review capture & management.",
-};
-
-const tints: Record<string, string> = {
-  "booking-system": "bg-sky",
-  "ai-assistant": "bg-ink text-background",
-  "email-automation": "bg-lemon",
-  "review-management": "bg-rose",
 };
 
 export default function ProductsPage() {
@@ -24,7 +18,7 @@ export default function ProductsPage() {
         eyebrow="Products"
         lines={[
           <>
-            Software built <span className="text-accent">in-house</span>,
+            Software built <span className="grad-text">in-house</span>,
           </>,
           <>
             for businesses like{" "}
@@ -34,48 +28,58 @@ export default function ProductsPage() {
         lede="Four tools, one connected system: bookings that fill themselves, an AI assistant that answers when you can't, email that follows up automatically, and reviews that grow on their own. Each product is in active development — join the early list and shape what we ship."
       />
 
-      <section className="border-b border-line">
-        <div className="mx-auto max-w-7xl px-5 py-16 sm:py-24">
-          <RevealGroup className="grid gap-5 md:grid-cols-2">
-            {products.map((product) => {
-              const dark = product.slug === "ai-assistant";
-              return (
+      {/* Dark luminous product grid */}
+      <section className="px-3 py-6 sm:px-5">
+        <div className="relative mx-auto max-w-[96rem] overflow-hidden rounded-[2.5rem] bg-dark text-white">
+          <div
+            aria-hidden
+            className="orb -top-40 right-[20%] h-[30rem] w-[30rem] opacity-35"
+            style={{
+              background:
+                "radial-gradient(circle at 50% 50%, #6366f1, rgba(99,102,241,0) 70%)",
+            }}
+          />
+          <div
+            aria-hidden
+            className="orb bottom-[-25%] left-[10%] h-[26rem] w-[26rem] opacity-30"
+            style={{
+              background:
+                "radial-gradient(circle at 50% 50%, #22d3ee, rgba(34,211,238,0) 70%)",
+            }}
+          />
+          <div className="relative mx-auto max-w-7xl px-5 py-16 sm:px-10 sm:py-24">
+            <RevealGroup className="grid gap-5 md:grid-cols-2">
+              {products.map((product) => (
                 <Link
                   key={product.slug}
                   href={`/products/${product.slug}`}
-                  className={`group flex min-h-[360px] flex-col justify-between rounded-3xl p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_60px_-20px_rgba(20,18,14,0.35)] sm:p-10 ${tints[product.slug]}`}
+                  className="group flex min-h-[440px] flex-col justify-between rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:border-accent/60 hover:glow-indigo sm:p-10"
                 >
                   <div className="flex items-start justify-between gap-4">
-                    <h2 className="display text-4xl leading-none">
+                    <h2 className="display text-3xl leading-none sm:text-4xl">
                       {product.name}
                     </h2>
-                    <ComingSoonBadge dark={dark} />
+                    <ComingSoonBadge dark />
                   </div>
+                  <ProductArt
+                    slug={product.slug}
+                    className="mx-auto h-44 w-full max-w-sm transition-transform duration-300 group-hover:scale-105"
+                  />
                   <div>
-                    <p
-                      className={`display text-2xl ${dark ? "text-lime" : "text-accent"}`}
-                    >
+                    <p className="display grad-text text-2xl">
                       {product.tagline}
                     </p>
-                    <p
-                      className={`mt-4 leading-relaxed ${
-                        dark ? "text-background/70" : "text-ink/70"
-                      }`}
-                    >
+                    <p className="mt-4 leading-relaxed text-white/65">
                       {product.summary}
                     </p>
-                    <p
-                      className={`mt-6 font-display text-sm font-bold uppercase tracking-wide ${
-                        dark ? "text-lime" : "text-ink"
-                      } opacity-0 transition-opacity duration-300 group-hover:opacity-100`}
-                    >
+                    <p className="mt-6 font-display text-sm font-bold uppercase tracking-wide text-cyan opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                       Learn more →
                     </p>
                   </div>
                 </Link>
-              );
-            })}
-          </RevealGroup>
+              ))}
+            </RevealGroup>
+          </div>
         </div>
       </section>
 
@@ -88,7 +92,7 @@ export default function ProductsPage() {
       <section className="border-b border-line">
         <div className="mx-auto max-w-7xl px-5 py-16 sm:py-24">
           <Reveal>
-            <div className="rounded-3xl bg-lime p-10 text-ink sm:p-14">
+            <div className="glow-cyan rounded-3xl bg-lime p-10 text-ink sm:p-14">
               <h2 className="display text-3xl sm:text-5xl">
                 Why &ldquo;coming soon&rdquo; doesn&apos;t mean &ldquo;wait&rdquo;.
               </h2>

@@ -1,21 +1,25 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f2efe9;
-  --surface: #faf8f4;
-  --ink: #14120e;
-  --ink-soft: #55524b;
-  --accent: #ff4d24;
-  --line: rgba(20, 18, 14, 0.12);
+  --background: #f5f6fc;
+  --surface: #ffffff;
+  --ink: #10101e;
+  --ink-soft: #5b5b70;
+  --accent: #6366f1;
+  --cyan: #22d3ee;
+  --pink: #f472b6;
+  --line: rgba(16, 16, 30, 0.1);
+  --dark: #0b0b1a;
+  --dark-2: #16162e;
 
-  /* card tints */
-  --tint-peach: #ffd9c2;
-  --tint-lilac: #e2d9ff;
-  --tint-mint: #d4eecb;
-  --tint-sky: #cfe3ff;
-  --tint-lemon: #f8ecb4;
-  --tint-rose: #ffd7e0;
-  --tint-lime: #d9f24e;
+  /* card tints — soft pastels of the software palette */
+  --tint-peach: #ffe3d3;
+  --tint-lilac: #e3e3fe;
+  --tint-mint: #d5f6ea;
+  --tint-sky: #d8ecff;
+  --tint-lemon: #fff3c4;
+  --tint-rose: #ffddee;
+  --tint-lime: #d3f56a;
 }
 
 @theme inline {
@@ -24,7 +28,11 @@
   --color-ink: var(--ink);
   --color-ink-soft: var(--ink-soft);
   --color-accent: var(--accent);
+  --color-cyan: var(--cyan);
+  --color-pink: var(--pink);
   --color-line: var(--line);
+  --color-dark: var(--dark);
+  --color-dark-2: var(--dark-2);
   --color-peach: var(--tint-peach);
   --color-lilac: var(--tint-lilac);
   --color-mint: var(--tint-mint);
@@ -32,8 +40,8 @@
   --color-lemon: var(--tint-lemon);
   --color-rose: var(--tint-rose);
   --color-lime: var(--tint-lime);
-  --font-sans: var(--font-geist-sans);
-  --font-display: var(--font-bricolage);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-grotesk);
   --font-mono: var(--font-geist-mono);
 }
 
@@ -44,71 +52,95 @@ html {
 body {
   background: var(--background);
   color: var(--ink);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-inter), system-ui, sans-serif;
   text-rendering: optimizeLegibility;
   overflow-x: clip;
 }
 
 ::selection {
-  background: var(--ink);
-  color: var(--background);
+  background: var(--accent);
+  color: #fff;
 }
 
-/* Display typography helpers */
+/* Display typography */
 .display {
-  font-family: var(--font-bricolage), sans-serif;
+  font-family: var(--font-grotesk), sans-serif;
   font-weight: 700;
   letter-spacing: -0.03em;
-  line-height: 0.95;
+  line-height: 0.96;
 }
 
 .display-black {
-  font-family: var(--font-bricolage), sans-serif;
-  font-weight: 800;
-  letter-spacing: -0.035em;
-  line-height: 0.92;
+  font-family: var(--font-grotesk), sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.93;
 }
 
-/* Outlined word — KOTA-style typographic play */
+/* Gradient text — the signature luminous accent */
+.grad-text {
+  background: linear-gradient(95deg, #6366f1 0%, #22d3ee 55%, #f472b6 110%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.grad-text-warm {
+  background: linear-gradient(95deg, #f472b6, #fb923c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Outlined word */
 .outline-text {
   color: transparent;
   -webkit-text-stroke: 2px var(--ink);
 }
-
+.outline-text-light {
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.9);
+}
 @media (max-width: 640px) {
   .outline-text {
     -webkit-text-stroke: 1.4px var(--ink);
   }
-}
-
-.outline-text-cream {
-  color: transparent;
-  -webkit-text-stroke: 2px var(--background);
-}
-
-/* Marquee */
-@keyframes marquee-scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
+  .outline-text-light {
+    -webkit-text-stroke: 1.4px rgba(255, 255, 255, 0.9);
   }
 }
 
+/* Luminosity helpers */
+.glow-indigo {
+  box-shadow: 0 0 90px -18px rgba(99, 102, 241, 0.65);
+}
+.glow-cyan {
+  box-shadow: 0 0 90px -18px rgba(34, 211, 238, 0.55);
+}
+.glow-soft {
+  box-shadow:
+    0 1px 2px rgba(16, 16, 30, 0.05),
+    0 16px 48px -16px rgba(99, 102, 241, 0.25);
+}
+.btn-grad {
+  background: linear-gradient(100deg, #6366f1, #4f8ef7 50%, #22d3ee);
+  box-shadow: 0 8px 32px -8px rgba(99, 102, 241, 0.55);
+}
+
+/* Background orbs (animated via GSAP) */
+.orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Marquee track (driven by GSAP; static when reduced motion) */
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee-scroll 28s linear infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track {
-    animation: none;
-  }
-  html {
-    scroll-behavior: auto;
-  }
+  will-change: transform;
 }
 
 /* Line-reveal masks for hero text.
@@ -123,4 +155,10 @@ body {
 .reveal-line > span {
   display: block;
   will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }

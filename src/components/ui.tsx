@@ -1,23 +1,29 @@
 import Link from "next/link";
 import { HeroReveal, Reveal } from "@/components/motion";
 
-/** Small numbered/mono label, KOTA-style: "01 — Services" */
+/** Small numbered/mono label: "01 — Services" */
 export function Label({
   children,
   index,
+  light = false,
 }: {
   children: React.ReactNode;
   index?: string;
+  light?: boolean;
 }) {
   return (
-    <p className="font-mono text-xs uppercase tracking-[0.18em] text-ink-soft">
-      {index && <span className="text-accent">{index} — </span>}
+    <p
+      className={`font-mono text-xs uppercase tracking-[0.18em] ${
+        light ? "text-white/60" : "text-ink-soft"
+      }`}
+    >
+      {index && <span className={light ? "grad-text" : "text-accent"}>{index} — </span>}
       {children}
     </p>
   );
 }
 
-/** Section title with size play: small word + huge word, one line each */
+/** Section title with size play: small word + huge word */
 export function SectionTitle({
   small,
   big,
@@ -39,10 +45,10 @@ export function ComingSoonBadge({ dark = false }: { dark?: boolean }) {
   return (
     <span
       className={`inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[11px] uppercase tracking-widest ${
-        dark ? "bg-lime text-ink" : "bg-ink text-background"
+        dark ? "bg-lime text-ink" : "bg-ink text-white"
       }`}
     >
-      <span className={`h-1.5 w-1.5 rounded-full ${dark ? "bg-ink" : "bg-lime"}`} />
+      <span className={`h-1.5 w-1.5 rounded-full ${dark ? "bg-ink" : "bg-cyan"}`} />
       Coming soon
     </span>
   );
@@ -56,15 +62,14 @@ export function PillButton({
 }: {
   href: string;
   children: React.ReactNode;
-  variant?: "ink" | "accent" | "outline" | "cream";
+  variant?: "ink" | "grad" | "outline" | "light";
   className?: string;
 }) {
   const styles = {
-    ink: "bg-ink text-background hover:bg-accent hover:text-background",
-    accent: "bg-accent text-background hover:bg-ink",
-    outline:
-      "border-2 border-ink text-ink hover:bg-ink hover:text-background",
-    cream: "bg-background text-ink hover:bg-accent hover:text-background",
+    ink: "bg-ink text-white hover:bg-accent",
+    grad: "btn-grad text-white hover:brightness-110",
+    outline: "border-2 border-ink text-ink hover:bg-ink hover:text-white",
+    light: "bg-white text-ink glow-soft hover:bg-accent hover:text-white",
   }[variant];
 
   return (
@@ -84,7 +89,6 @@ export function PageHero({
   lede,
 }: {
   eyebrow: string;
-  /** each entry renders as one masked reveal line */
   lines: React.ReactNode[];
   lede: string;
 }) {
@@ -132,7 +136,7 @@ export function CtaBand({
             {body}
           </p>
           <div className="mt-10">
-            <PillButton href={href} variant="accent" className="px-10 py-5 text-base">
+            <PillButton href={href} variant="grad" className="px-10 py-5 text-base">
               {buttonLabel} <span aria-hidden>→</span>
             </PillButton>
           </div>

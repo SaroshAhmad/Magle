@@ -65,11 +65,11 @@ export default function ContactPage() {
               </Reveal>
 
               <Reveal delay={0.15}>
-                <div className="rounded-3xl bg-ink p-8 text-background">
-                  <p className="font-mono text-xs uppercase tracking-[0.18em] text-lime">
-                    ✦ Where we work
+                <div className="glow-indigo rounded-3xl bg-dark p-8 text-white">
+                  <p className="font-mono text-xs uppercase tracking-[0.18em]">
+                    <span className="grad-text">✦ Where we work</span>
                   </p>
-                  <p className="mt-4 text-sm leading-relaxed text-background/70">
+                  <p className="mt-4 text-sm leading-relaxed text-white/70">
                     Remote-first, serving clients in the UK, India and beyond.
                     Wherever your customers are, that&apos;s where we work.
                   </p>
@@ -78,7 +78,7 @@ export default function ContactPage() {
             </div>
 
             <Reveal delay={0.1}>
-              <div className="rounded-3xl border-2 border-ink bg-surface p-8 sm:p-10">
+              <div className="glow-soft rounded-3xl bg-surface p-8 sm:p-10">
                 <ContactForm />
               </div>
             </Reveal>

@@ -135,16 +135,16 @@ export default function CulturePage() {
               </ul>
             </Reveal>
             <Reveal delay={0.15}>
-              <blockquote className="-rotate-1 rounded-3xl bg-ink p-9 text-background transition-transform duration-300 hover:rotate-0 sm:p-12">
+              <blockquote className="glow-indigo -rotate-1 rounded-3xl bg-dark p-9 text-white transition-transform duration-300 hover:rotate-0 sm:p-12">
                 <p className="display text-3xl leading-tight sm:text-4xl">
                   &ldquo;We want Magle to be the place where{" "}
-                  <span className="text-lime">
+                  <span className="grad-text">
                     serious people do their best work
                   </span>{" "}
                   — and where a small business owner anywhere can afford the
                   result.&rdquo;
                 </p>
-                <footer className="mt-6 font-mono text-xs uppercase tracking-[0.18em] text-background/50">
+                <footer className="mt-6 font-mono text-xs uppercase tracking-[0.18em] text-white/50">
                   ✦ Why we&apos;re building this
                 </footer>
               </blockquote>
@@ -176,7 +176,7 @@ export default function CulturePage() {
               </p>
             </Reveal>
             <Reveal delay={0.12}>
-              <div className="rounded-3xl border-2 border-ink bg-surface p-8 sm:p-10">
+              <div className="glow-soft rounded-3xl bg-surface p-8 sm:p-10">
                 <ApplicationForm />
               </div>
             </Reveal>
